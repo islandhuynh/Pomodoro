@@ -20,10 +20,13 @@ def start_timer():
   reps += 1
 
   if reps % 8 == 0:
+    timer_label.config(fg=RED, text="BREAK")
     count_down(LONG_BREAK_MIN*60)
   elif reps % 2 == 0:
+    timer_label.config(fg=PINK, text="BREAK")
     count_down(SHORT_BREAK_MIN*60)
   else:
+    timer_label.config(fg=GREEN, text="WORK")
     count_down(WORK_MIN*60)
 
 def reset_timer():
@@ -44,6 +47,7 @@ def count_down(count):
     window.after(1000, count_down, count - 1)
   else:
     start_timer()
+    check_marks.config(text="✓"*reps)
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -64,5 +68,8 @@ start_button = Button(text="Start", command=start_timer, highlightthickness=0)
 start_button.grid(column=0, row=2)
 reset_button = Button(text="Reset", command=reset_timer, highlightthickness=0)
 reset_button.grid(column=2, row=2)
+
+check_marks = Label(bg=YELLOW, fg=GREEN)
+check_marks.grid(column=1, row=3)
 
 window.mainloop()
